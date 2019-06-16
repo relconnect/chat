@@ -8,7 +8,8 @@ var LiveReloadPlugin = require("webpack-livereload-plugin");
 const isDevelopment = argv.mode === "development";
 const isProduction = !isDevelopment;
 const distPath = path.join(__dirname, "/public");
-
+var webpack = require("webpack");
+var $ = require("jquery");
 const config = {
   entry: {
     main: "./src/js/index.js"
@@ -31,6 +32,10 @@ const config = {
             loader: "babel-loader"
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
       },
       {
         test: /\.scss$/,
@@ -84,6 +89,11 @@ const config = {
     ]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
+    }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"

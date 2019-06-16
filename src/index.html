@@ -11,7 +11,161 @@
     <title>Webpack starter!</title>
   </head>
   <body>
-    <p>d</p>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__logo">
+          <img src="images/chat-logo.png" alt="" class="header__logo-img" />
+        </div>
+        <div class="header__info">
+          <div class="time">
+            <div class="time__content">
+              <img src="images/curent-clock.png" class="time__img time__img_current" alt="" />
+              <span class="time__hours time__hours_current">12:00</span>
+            </div>
+            <div class="time__content">
+              <img src="images/green-circle.png" class="time__img time__img_online" alt="" />
+              <span class="time__hours time__hours_online">12:00</span>
+            </div>
+          </div>
+          <div class="new-message">
+            <a href="#" class="new-message__link">
+              <img src="images/bell.png" class="new-message__img" alt="new message" />
+              <span class="new-message__count">15</span>
+            </a>
+          </div>
+          <div class="profile">
+            <a href="#" class="profile__link">
+              <img src="images/user-2-icon.png" class="profile__img" alt="profile" />
+            </a>
+          </div>
+        </div>
+      </header>
+    </div>
+    <main class="main">
+      <section class="members">
+        <div class="members__title"><span>Online -</span><span>10</span></div>
+        <div class="members__block">
+          <div class="member">
+            <div class="member__icon">
+              <img src="images/user-2-icon.png" class="member__img" alt="" />
+              <img src="images/green-circle.png" class="member__status" alt="" />
+            </div>
+            <p class="member__name">Name</p>
+          </div>
+        </div>
+        <div class="members__block">
+          <div class="member">
+            <div class="member__icon">
+              <img src="images/user-2-icon.png" class="member__img" alt="" />
+              <img src="images/green-circle.png" class="member__status" alt="" />
+            </div>
+            <p class="member__name">Name</p>
+          </div>
+        </div>
+        <div class="members__block">
+          <div class="member">
+            <div class="member__icon">
+              <img src="images/user-2-icon.png" class="member__img" alt="" />
+              <img src="images/green-circle.png" class="member__status" alt="" />
+            </div>
+            <p class="member__name">Name</p>
+          </div>
+        </div>
+        <div class="members__block">
+          <div class="member">
+            <div class="member__icon">
+              <img src="images/user-2-icon.png" class="member__img" alt="" />
+              <img src="images/green-circle.png" class="member__status" alt="" />
+            </div>
+            <p class="member__name">Name</p>
+          </div>
+        </div>
+      </section>
+      <!-- <div id="responsiveTabsDemo">
+        <ul>
+          <li><a href="#tab-1"> .... </a></li>
+          <li><a href="#tab-2"> .... </a></li>
+          <li><a href="#tab-3"> .... </a></li>
+        </ul>
+
+        <div id="tab-1">.......</div>
+        <div id="tab-2">.......</div>
+        <div id="tab-3">.......</div>
+      </div> -->
+      <div class="chat__container">
+        <div class="chat">
+          <ul class="chat-tab">
+            <li class="tab-item tab-active">
+              <img src="images/green-circle.png" alt="" class="tab-user-status" />
+              <a href="#" class="tab-user-name">Chat-1</a>
+              <img src="images/close.png" class="tab-close__btn" alt="" />
+            </li>
+            <li class="tab-item">
+              <img src="images/green-circle.png" alt="" class="tab-user-status" />
+              <a href="#" class="tab-user-name">Chat-2</a>
+            </li>
+            <li class="tab-item">
+              <img src="images/green-circle.png" alt="" class="tab-user-status" />
+              <a href="#" class="tab-user-name">Chat-3</a>
+            </li>
+          </ul>
+          <div id="Chat-1" class="chat-area">
+            <div class="message__block">
+              <div class="message message__internal">
+                <p class="message__text message__text_internal">hello Mike</p>
+                <div class=" tool-tip tool-tip_internal"></div>
+              </div>
+              <div class="message message__external">
+                <p class="message__text message__text_external">hello Nikki</p>
+                <div class="tool-tip tool-tip_external"></div>
+              </div>
+            </div>
+            <div class="chat__controls">
+              <div class="form__wrap">
+                <form action="#" class="chat__form">
+                  <textarea
+                    name=""
+                    id=""
+                    cols="30"
+                    placeholder="Write something..."
+                    rows="5"
+                    class="form__area"
+                  ></textarea>
+                  <div class="btn__controls">
+                    <button type="button" class="chat__controls-btn">B</button>
+                    <button type="button" class="chat__controls-btn">I</button>
+                    <button type="button" class="chat__send-btn">
+                      <img src="images/send-btn.png" class="send-img" alt="" />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-info">
+          <h2 class="chat-info__title">Chat info</h2>
+          <ul class="chat-info__list">
+            <li class="chat-info__item">
+              <span>Symbols</span>
+              <span>500</span>
+            </li>
+            <li class="chat-info__item">
+              <span>Letters</span>
+              <span>500</span>
+            </li>
+            <li class="chat-info__item">
+              <span>Invisible Symbols</span>
+              <span>500</span>
+            </li>
+            <li class="chat-info__item">
+              <span>Marks</span>
+              <span>500</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
     <script src="http://localhost:35729/livereload.js"></script>
   </body>
 </html>
