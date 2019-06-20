@@ -7,14 +7,19 @@
       name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
 
-    <title>Webpack starter!</title>
+    <title>Be online!</title>
   </head>
   <body>
     <div class="wrapper">
       <header class="header">
         <div class="header__logo">
           <img src="images/chat-logo.png" alt="" class="header__logo-img" />
+        </div>
+        <div class="header__text">
+          <p class="header__chat-name">Live chat</p>
+          <p class="header__chat-text_small">stay online!</p>
         </div>
         <div class="header__info">
           <div class="time">
@@ -80,18 +85,17 @@
             <p class="member__name">Name</p>
           </div>
         </div>
+        <div class="members__block">
+          <div class="member">
+            <div class="member__icon inactive">
+              <img src="images/user-2-icon.png" class="member__img" alt="" />
+              <img src="images/green-circle.png" class="member__status" alt="" />
+            </div>
+            <p class="member__name">Name</p>
+          </div>
+        </div>
       </section>
-      <!-- <div id="responsiveTabsDemo">
-        <ul>
-          <li><a href="#tab-1"> .... </a></li>
-          <li><a href="#tab-2"> .... </a></li>
-          <li><a href="#tab-3"> .... </a></li>
-        </ul>
 
-        <div id="tab-1">.......</div>
-        <div id="tab-2">.......</div>
-        <div id="tab-3">.......</div>
-      </div> -->
       <div class="chat__container">
         <div class="chat">
           <ul class="chat-tab">
@@ -114,32 +118,32 @@
               <div class="message message__internal">
                 <p class="message__text message__text_internal">hello Mike</p>
                 <div class=" tool-tip tool-tip_internal"></div>
+                <span class="message__send-time message__send-time_internal">15:00</span>
               </div>
               <div class="message message__external">
                 <p class="message__text message__text_external">hello Nikki</p>
                 <div class="tool-tip tool-tip_external"></div>
+                <span class="message__send-time message__send-time_external">15:07</span>
               </div>
             </div>
             <div class="chat__controls">
-              <div class="form__wrap">
-                <form action="#" class="chat__form">
-                  <textarea
-                    name=""
-                    id=""
-                    cols="30"
-                    placeholder="Write something..."
-                    rows="5"
-                    class="form__area"
-                  ></textarea>
-                  <div class="btn__controls">
-                    <button type="button" class="chat__controls-btn">B</button>
-                    <button type="button" class="chat__controls-btn">I</button>
-                    <button type="button" class="chat__send-btn">
-                      <img src="images/send-btn.png" class="send-img" alt="" />
-                    </button>
-                  </div>
-                </form>
-              </div>
+              <form action="#" class="chat__form">
+                <textarea
+                  name=""
+                  id=""
+                  cols="30"
+                  placeholder="Write something..."
+                  rows="5"
+                  class="form__area"
+                ></textarea>
+                <div class="btn__controls">
+                  <button type="button" class="chat__controls-btn">B</button>
+                  <button type="button" class="chat__controls-btn">I</button>
+                  <button type="button" class="chat__send-btn">
+                    <img src="images/send-btn.png" class="send-img" alt="" />
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

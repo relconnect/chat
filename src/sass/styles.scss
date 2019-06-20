@@ -100,6 +100,25 @@ body {
     right: -15px;
   }
 }
+.header__text {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.header__chat-name {
+  font-family: "Poppins", sans-serif;
+  font-size: 50px;
+  margin: 0;
+  text-align: center;
+  color: #55b9c2;
+}
+.header__chat-text_small {
+  font-size: 15px;
+  margin: 0;
+  text-align: center;
+  color: #ff5722;
+}
 
 .profile {
   align-items: center;
@@ -169,6 +188,12 @@ body {
     align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
+  .member__icon.inactive {
+    background-color: #e5e5e5;
+    .member__status {
+      display: none;
+    }
+  }
   .member__img {
     height: 70%;
     max-width: 100%;
@@ -181,7 +206,7 @@ body {
   }
   .member__name {
     padding-left: 20px;
-    color: #ff5722;
+    color: black;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -196,7 +221,9 @@ body {
 }
 .chat-info {
   display: flex;
-  flex-basis: 250px;
+  flex-basis: 220px;
+  height: 220px;
+  margin-top: 70px;
   flex-direction: column;
   background-color: #fff;
   margin-left: 20px;
@@ -206,7 +233,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 30px;
+  font-size: 22px;
   color: #707070;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -222,7 +249,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 22px;
+  font-size: 15px;
   color: #707070;
   border-bottom: 3px solid #e5e5e5;
 
@@ -297,6 +324,20 @@ body {
 .message {
   display: flex;
   position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.message__send-time {
+  position: absolute;
+  bottom: -20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+.message__send-time_internal {
+  left: 20px;
+}
+.message__send-time_external {
+  right: 20px;
 }
 .message__internal {
   justify-content: flex-start;
@@ -351,12 +392,13 @@ body {
   background-color: #e5e5e5;
 }
 .form__area {
-  height: 70px;
+  height: 60px;
   box-sizing: border-box;
   resize: none;
   flex-basis: auto;
   flex-grow: 1;
-  background-color: #e5e5e5;
+  background-color: #ffff;
+  margin: 5px;
   border: none;
 }
 .chat__form {
