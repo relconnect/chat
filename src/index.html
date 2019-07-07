@@ -7,6 +7,9 @@
       name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
 
     <title>Be online!</title>
@@ -48,51 +51,53 @@
     </div>
     <main class="main">
       <section class="members">
-        <div class="members__title"><span>Online -</span><span>10</span></div>
-        <div class="members__block">
-          <div class="member">
-            <div class="member__icon">
-              <img src="images/user-2-icon.png" class="member__img" alt="" />
-              <img src="images/green-circle.png" class="member__status" alt="" />
+        <div class="members__title"><span>Online -</span><span class="members__count"></span></div>
+        <div class="members__list">
+          <!-- <div class="members__block">
+            <div class="member">
+              <div class="member__icon">
+                <img src="images/user-2-icon.png" class="member__img" alt="" />
+                <img src="images/green-circle.png" class="member__status" alt="" />
+              </div>
+              <p class="member__name">Name</p>
             </div>
-            <p class="member__name">Name</p>
           </div>
-        </div>
-        <div class="members__block">
-          <div class="member">
-            <div class="member__icon">
-              <img src="images/user-2-icon.png" class="member__img" alt="" />
-              <img src="images/green-circle.png" class="member__status" alt="" />
+          <div class="members__block">
+            <div class="member">
+              <div class="member__icon">
+                <img src="images/user-2-icon.png" class="member__img" alt="" />
+                <img src="images/green-circle.png" class="member__status" alt="" />
+              </div>
+              <p class="member__name">Name</p>
             </div>
-            <p class="member__name">Name</p>
           </div>
-        </div>
-        <div class="members__block">
-          <div class="member">
-            <div class="member__icon">
-              <img src="images/user-2-icon.png" class="member__img" alt="" />
-              <img src="images/green-circle.png" class="member__status" alt="" />
+          <div class="members__block">
+            <div class="member">
+              <div class="member__icon">
+                <img src="images/user-2-icon.png" class="member__img" alt="" />
+                <img src="images/green-circle.png" class="member__status" alt="" />
+              </div>
+              <p class="member__name">Name</p>
             </div>
-            <p class="member__name">Name</p>
           </div>
-        </div>
-        <div class="members__block">
-          <div class="member">
-            <div class="member__icon">
-              <img src="images/user-2-icon.png" class="member__img" alt="" />
-              <img src="images/green-circle.png" class="member__status" alt="" />
+          <div class="members__block">
+            <div class="member">
+              <div class="member__icon">
+                <img src="images/user-2-icon.png" class="member__img" alt="" />
+                <img src="images/green-circle.png" class="member__status" alt="" />
+              </div>
+              <p class="member__name">Name</p>
             </div>
-            <p class="member__name">Name</p>
           </div>
-        </div>
-        <div class="members__block">
-          <div class="member">
-            <div class="member__icon inactive">
-              <img src="images/user-2-icon.png" class="member__img" alt="" />
-              <img src="images/green-circle.png" class="member__status" alt="" />
+          <div class="members__block">
+            <div class="member">
+              <div class="member__icon inactive">
+                <img src="images/user-2-icon.png" class="member__img" alt="" />
+                <img src="images/green-circle.png" class="member__status" alt="" />
+              </div>
+              <p class="member__name">Name</p>
             </div>
-            <p class="member__name">Name</p>
-          </div>
+          </div> -->
         </div>
       </section>
 
@@ -170,6 +175,28 @@
         </div>
       </div>
     </main>
+    <div class="login-form">
+      <form action="#" method="post" class="js-login-form">
+        <div class="avatar"><i class="material-icons">&#xE7FF;</i></div>
+        <h4 class="modal-title">Login to Your Account</h4>
+        <div class="form-group js-form-name">
+          <input type="text" class="form-control js-user-name" placeholder="Username" required="required" />
+        </div>
+        <!-- <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" />
+        </div> -->
+        <!-- <div class="form-group small clearfix">
+          <label class="checkbox-inline"><input type="checkbox" /> Remember me</label>
+          <a href="#" class="forgot-link">Forgot Password?</a>
+        </div> -->
+        <!-- <input type="submit" class="btn btn-primary btn-block btn-lg js-login-btn" value="Login" /> -->
+        <button type="submit" class="btn btn-primary btn-block btn-lg js-login-btn">Login</button>
+        <button type="button" class="btn btn-primary btn-block btn-lg js-registration-btn">Registration</button>
+      </form>
+      <!-- <div class="text-center small">Don't have an account? <a href="#">Sign up</a></div> -->
+      <div class="bg-layer"></div>
+    </div>
     <script src="http://localhost:35729/livereload.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
   </body>
 </html>
