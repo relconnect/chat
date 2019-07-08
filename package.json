@@ -59,6 +59,7 @@
     "jquery": "^3.4.1",
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.1",
-    "responsive-tabs": "^1.6.3"
+    "responsive-tabs": "^1.6.3",
+    "sweetalert2": "^8.13.2"
   }
 }

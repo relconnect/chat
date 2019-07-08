@@ -1,5 +1,6 @@
 import "normalize.css";
 import "./../sass/styles.scss";
+import Swal from "sweetalert2";
 
 let loginBtn = document.querySelector(".js-login-btn");
 let registrationBtn = document.querySelector(".js-registration-btn");
@@ -9,6 +10,7 @@ let onlineUsersCount = document.querySelector(".members__count");
 let userList = document.querySelector(".members__list");
 
 loginForm.addEventListener("submit", checkUsersLogin);
+registrationBtn.addEventListener("click", userRegistration);
 
 function checkUsersLogin(e) {
   e.preventDefault();
@@ -26,17 +28,51 @@ function checkUsersLogin(e) {
       if (isAvaliable !== undefined) {
         formBlock.classList.add("hide");
       } else {
-        let errMessage = document.createElement("p");
-        errMessage.classList.add("login__message_error");
-        errMessage.innerHTML = "No user with this login";
-        let userNameNode = document.querySelector(".js-form-name");
+        Swal.fire(`Error`, `No user with this login`, "error");
+        document.querySelector(".js-user-name").value = "";
+        // let errMessage = document.createElement("p");
+        // errMessage.classList.add("login__message_error");
+        // errMessage.innerHTML = "No user with this login";
+        // let userNameNode = document.querySelector(".js-form-name");
 
-        if (!document.querySelector(".login__message_error")) {
-          userNameNode.append(errMessage);
-        }
+        // if (!document.querySelector(".login__message_error")) {
+        //   userNameNode.append(errMessage);
+        // }
       }
     })
     .catch(err => console.log(err));
+}
+
+//Registration
+function userRegistration() {
+  let name = document.querySelector(".js-user-name");
+
+  let user = {};
+  user.username = name.value;
+
+  fetch("https://studentschat.herokuapp.com/users/register", {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`ERROR: ${response.statusText}`);
+      }
+    })
+    .then(data => {
+      Swal.fire(`User ${data.username} successfully registered`, `User ID: ${data.id}`, "success");
+      document.querySelector(".js-user-name").value = "";
+    })
+    .catch(err => {
+      Swal.fire(`Error`, `This login is already used`, "error");
+      document.querySelector(".js-user-name").value = "";
+    });
 }
 
 //Get online users count
@@ -119,4 +155,5 @@ let getUsersList = () => {
   };
   request.send();
 };
+
 getUsersList();
