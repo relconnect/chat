@@ -12,6 +12,7 @@ let userList = document.querySelector(".members__list");
 loginForm.addEventListener("submit", checkUsersLogin);
 registrationBtn.addEventListener("click", userRegistration);
 
+//Chacking login in base
 function checkUsersLogin(e) {
   e.preventDefault();
   let name = e.target.querySelector(".js-user-name");
@@ -27,6 +28,8 @@ function checkUsersLogin(e) {
       let isAvaliable = data.find(elem => elem.username == name.value);
       if (isAvaliable !== undefined) {
         formBlock.classList.add("hide");
+        getUsersList();
+        getMassages("MAIN");
       } else {
         Swal.fire(`Error`, `No user with this login`, "error");
         document.querySelector(".js-user-name").value = "";
@@ -74,7 +77,52 @@ function userRegistration() {
       document.querySelector(".js-user-name").value = "";
     });
 }
+// Get messages
+const getMassages = chatId => {
+  let chatMessagesList = document.querySelector(`#${chatId}`);
+  // console.log(chatMessagesList);
+  const URL = "https://studentschat.herokuapp.com/messages";
+  fetch(URL)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`ERROR: ${response.statusText}`);
+      }
+    })
+    .then(data => {
+      let chatMessages = chatMessagesList.querySelector(".message__block");
+      data.forEach(element => {
+        if (element.chatroom_id == chatId) {
+          let node = createMessage(element);
+          chatMessages.appendChild(node);
+        }
+      });
+    });
+};
 
+//Create message
+const createMessage = element => {
+  let message = document.createElement("div");
+  message.classList.add("message", "message__internal");
+  let messageText = document.createElement("p");
+  messageText.classList.add("message__text", "message__text_internal");
+  messageText.innerHTML = element.message;
+  let toolTip = document.createElement("div");
+  toolTip.classList.add("tool-tip", "tool-tip_internal");
+
+  let messageTime = document.createElement("span");
+  messageTime.classList.add("message__send-time", "message__send-time_internal");
+  let date = new Date(Date.parse(element.datetime));
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  let hours = date.getHours();
+  let seconds = date.getSeconds();
+  messageTime.innerHTML = `${day}.${month}.${year} - ${hours}:${seconds}`;
+  message.append(messageText, toolTip, messageTime);
+  return message;
+};
 //Get online users count
 const getActiveUsers = data => {
   let activeUsersCount = 0;
@@ -131,8 +179,6 @@ let getUsersList = () => {
       // Обработчик успещного ответа
       let response = request.responseText;
       let users = JSON.parse(response);
-
-      //   console.log(users);
       onlineUsersCount.innerHTML = getActiveUsers(users);
       let usersArray = [];
       users.forEach(element => {
@@ -155,5 +201,3 @@ let getUsersList = () => {
   };
   request.send();
 };
-
-getUsersList();
