@@ -3,14 +3,27 @@ import "./../sass/styles.scss";
 import Swal from "sweetalert2";
 
 let loginBtn = document.querySelector(".js-login-btn");
+let btnBold = document.querySelector(".btn-bold");
+let btnItalick = document.querySelector(".btn-italick");
+let btnUnderline = document.querySelector(".btn-underline");
+let btnSend = document.querySelector(".btn-send");
 let registrationBtn = document.querySelector(".js-registration-btn");
 let formBlock = document.querySelector(".login-form");
 let loginForm = document.querySelector(".js-login-form");
 let onlineUsersCount = document.querySelector(".members__count");
 let userList = document.querySelector(".members__list");
-
+let messageBlock = document.querySelector(".message__block");
+let textArea = document.querySelector(".form__area");
+let userId = null;
+let nameUsermsg;
+btnSend.addEventListener("click", sendFunction);
+btnUnderline.addEventListener("click", underlineFunction);
+btnBold.addEventListener("click", boldFunction);
+btnItalick.addEventListener("click", italicFunction);
+textArea.addEventListener("input", symbolCountr);
 loginForm.addEventListener("submit", checkUsersLogin);
 registrationBtn.addEventListener("click", userRegistration);
+// messageBlock.addEventListener("scroll", scrollbottom);
 
 //Chacking login in base
 function checkUsersLogin(e) {
@@ -30,6 +43,7 @@ function checkUsersLogin(e) {
         formBlock.classList.add("hide");
         getUsersList();
         getMassages("MAIN");
+        userId = isAvaliable.user_id;
       } else {
         Swal.fire(`Error`, `No user with this login`, "error");
         document.querySelector(".js-user-name").value = "";
@@ -98,11 +112,13 @@ const getMassages = chatId => {
           chatMessages.appendChild(node);
         }
       });
+      scrollbottom();
     });
 };
 
 //Create message
 const createMessage = element => {
+  findName(element.user_id);
   let message = document.createElement("div");
   message.classList.add("message", "message__internal");
   let messageText = document.createElement("p");
@@ -110,7 +126,9 @@ const createMessage = element => {
   messageText.innerHTML = element.message;
   let toolTip = document.createElement("div");
   toolTip.classList.add("tool-tip", "tool-tip_internal");
-
+  let usersName = document.createElement("p");
+  usersName.classList.add("user-name");
+  usersName.innerHTML = nameUsermsg;
   let messageTime = document.createElement("span");
   messageTime.classList.add("message__send-time", "message__send-time_internal");
   let date = new Date(Date.parse(element.datetime));
@@ -120,7 +138,8 @@ const createMessage = element => {
   let hours = date.getHours();
   let seconds = date.getSeconds();
   messageTime.innerHTML = `${day}.${month}.${year} - ${hours}:${seconds}`;
-  message.append(messageText, toolTip, messageTime);
+  message.append(messageText, usersName, toolTip, messageTime);
+
   return message;
 };
 //Get online users count
@@ -201,3 +220,86 @@ let getUsersList = () => {
   };
   request.send();
 };
+
+function scrollbottom() {
+  messageBlock.scrollTop = messageBlock.scrollHeight - messageBlock.clientHeight;
+}
+
+function symbolCountr(e) {
+  let textMessage = textArea.textContent;
+  let totalSymbols = document.querySelector(".total_symbols");
+  let totalLetter = document.querySelector(".total_letters");
+  let totalInvSymbols = document.querySelector(".total_inv-symbols");
+  let totalMarks = document.querySelector(".total_marks");
+
+  if (textMessage.length < 501) {
+    totalSymbols.innerHTML = textMessage.length;
+    if (textMessage.match(/[a-z]/gi)) {
+      totalLetter.innerHTML = textMessage.match(/[a-z]/gi).length;
+    } else {
+      totalLetter.innerHTML = "0";
+    }
+
+    totalInvSymbols.innerHTML = textMessage.split(" ").length - 1 || [].length;
+    if (textMessage.match(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)) {
+      totalMarks.innerHTML = textMessage.match(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g).length;
+    } else {
+      totalMarks.innerHTML = "0";
+    }
+  }
+}
+
+function boldFunction() {
+  document.execCommand("bold", false, null);
+}
+function italicFunction() {
+  document.execCommand("italic", false, null);
+}
+
+function underlineFunction() {
+  document.execCommand("underline", false, null);
+}
+
+function sendFunction() {
+  let datenow = new Date();
+  let user = {};
+  user.datetime = datenow.toISOString();
+  user.message = textArea.innerHTML;
+  user.user_id = userId;
+  // console.log(user);
+  fetch("https://studentschat.herokuapp.com/messages", {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`ERROR: ${response.statusText}`);
+      }
+    })
+    .then(data => console.log(data));
+}
+
+function findName(id) {
+  fetch("https://studentschat.herokuapp.com/users")
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`ERROR: ${response.statusText}`);
+      }
+    })
+    .then(data => {
+      let user = data.find(elem => elem.user_id == id);
+      return user.username;
+    })
+    .then(data => {
+      nameUsermsg = data;
+    })
+    .catch(err => console.log(err));
+}
