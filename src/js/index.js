@@ -1,7 +1,7 @@
 import "normalize.css";
 import "./../sass/styles.scss";
 import Swal from "sweetalert2";
-
+let arrayOfUsers = [];
 let loginBtn = document.querySelector(".js-login-btn");
 let btnBold = document.querySelector(".btn-bold");
 let btnItalick = document.querySelector(".btn-italick");
@@ -15,7 +15,7 @@ let userList = document.querySelector(".members__list");
 let messageBlock = document.querySelector(".message__block");
 let textArea = document.querySelector(".form__area");
 let userId = null;
-let nameUsermsg;
+
 btnSend.addEventListener("click", sendFunction);
 btnUnderline.addEventListener("click", underlineFunction);
 btnBold.addEventListener("click", boldFunction);
@@ -106,10 +106,30 @@ const getMassages = chatId => {
     })
     .then(data => {
       let chatMessages = chatMessagesList.querySelector(".message__block");
+      let date;
       data.forEach(element => {
         if (element.chatroom_id == chatId) {
-          let node = createMessage(element);
-          chatMessages.appendChild(node);
+          if (date + 86400000 >= Date.parse(element.datetime)) {
+            let node = createMessage(element);
+            chatMessages.appendChild(node);
+          } else {
+            date = Date.parse(element.datetime);
+            let time = document.createElement("div");
+            time.classList.add("time-divider");
+            let dateTime = new Date(date);
+            console.log();
+            let year = dateTime.getFullYear();
+            let month = dateTime.getMonth() + 1;
+            let day = dateTime.getDate();
+            let hours = dateTime.getHours();
+            let seconds = dateTime.getSeconds();
+            time.innerHTML = `${day}.${month}.${year}`;
+            let node = createMessage(element);
+            chatMessages.appendChild(time);
+            chatMessages.appendChild(node);
+          }
+
+          console.log(element.datetime);
         }
       });
       scrollbottom();
@@ -118,17 +138,16 @@ const getMassages = chatId => {
 
 //Create message
 const createMessage = element => {
-  findName(element.user_id);
   let message = document.createElement("div");
   message.classList.add("message", "message__internal");
   let messageText = document.createElement("p");
   messageText.classList.add("message__text", "message__text_internal");
   messageText.innerHTML = element.message;
-  let toolTip = document.createElement("div");
-  toolTip.classList.add("tool-tip", "tool-tip_internal");
+  // let toolTip = document.createElement("div");
+  // toolTip.classList.add("tool-tip", "tool-tip_internal");
   let usersName = document.createElement("p");
   usersName.classList.add("user-name");
-  usersName.innerHTML = nameUsermsg;
+  usersName.innerHTML = findName(element.user_id);
   let messageTime = document.createElement("span");
   messageTime.classList.add("message__send-time", "message__send-time_internal");
   let date = new Date(Date.parse(element.datetime));
@@ -138,7 +157,7 @@ const createMessage = element => {
   let hours = date.getHours();
   let seconds = date.getSeconds();
   messageTime.innerHTML = `${day}.${month}.${year} - ${hours}:${seconds}`;
-  message.append(messageText, usersName, toolTip, messageTime);
+  message.append(usersName, messageText, messageTime);
 
   return message;
 };
@@ -200,6 +219,7 @@ let getUsersList = () => {
       let users = JSON.parse(response);
       onlineUsersCount.innerHTML = getActiveUsers(users);
       let usersArray = [];
+
       users.forEach(element => {
         let node = createUserNode(element);
 
@@ -211,6 +231,7 @@ let getUsersList = () => {
       });
 
       userList.append(...usersArray);
+      arrayOfUsers = users;
     } else {
       console.log(request.status);
     }
@@ -286,20 +307,6 @@ function sendFunction() {
 }
 
 function findName(id) {
-  fetch("https://studentschat.herokuapp.com/users")
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error(`ERROR: ${response.statusText}`);
-      }
-    })
-    .then(data => {
-      let user = data.find(elem => elem.user_id == id);
-      return user.username;
-    })
-    .then(data => {
-      nameUsermsg = data;
-    })
-    .catch(err => console.log(err));
+  let name = arrayOfUsers.find(elem => elem.user_id == id);
+  return name.username;
 }
