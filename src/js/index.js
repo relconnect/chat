@@ -44,6 +44,14 @@ function checkUsersLogin(e) {
         getUsersList();
         getMassages("MAIN");
         userId = isAvaliable.user_id;
+        let onlineTime = document.querySelector(".time__hours_online");
+        let startTime = new Date().getTime();
+        setInterval(() => {
+          let curent = Date.now();
+          let deltaTime = curent - startTime;
+
+          updateClockface(onlineTime, deltaTime);
+        }, 100);
       } else {
         Swal.fire(`Error`, `No user with this login`, "error");
         document.querySelector(".js-user-name").value = "";
@@ -121,8 +129,6 @@ const getMassages = chatId => {
             let year = dateTime.getFullYear();
             let month = dateTime.getMonth() + 1;
             let day = dateTime.getDate();
-            let hours = dateTime.getHours();
-            let seconds = dateTime.getSeconds();
             time.innerHTML = `${day}.${month}.${year}`;
             let node = createMessage(element);
             chatMessages.appendChild(time);
@@ -309,4 +315,29 @@ function sendFunction() {
 function findName(id) {
   let name = arrayOfUsers.find(elem => elem.user_id == id);
   return name.username;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  setInterval(() => {
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+
+    let chatHours = document.querySelector(".curent__hours");
+    let chatMinutes = document.querySelector(".curent__minutes");
+
+    chatHours.innerHTML = hours;
+    chatMinutes.innerHTML = minutes;
+  }, 1000);
+});
+
+function updateClockface(elem, time) {
+  elem.textContent = getFormattedTime(time);
+}
+function getFormattedTime(time) {
+  let data = new Date(time);
+  // let milisec = parseInt(data.getMilliseconds() / 100);
+  let min = data.getMinutes() < 10 ? "0" + data.getMinutes() : data.getMinutes();
+  let sec = data.getSeconds() < 10 ? "0" + data.getSeconds() : data.getSeconds();
+  return `${min}:${sec}`;
 }
